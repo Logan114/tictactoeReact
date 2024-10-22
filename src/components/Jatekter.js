@@ -1,22 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import Cella from "./Cella";
-function Jatekter(props) {
-    function katt(adat){
-        props.katt(`${adat}`)
-    }
-    console.log(props.lista)
-  return (
-  <>
+import { KattContext } from "../KattContext";
 
-  {
-    props.lista.map((e,i)=>
-    {
-        
-        return(<Cella jel={e} key={i} index={i} katt={katt} />)
-    }
-    )
-  }
-  </>
+function Jatekter(props) {
+ const {katt}=useContext(KattContext);
+ //const {katt}=useContext(KattContext);
+
+  return (
+    <>
+      {props.lista.map((e, i) => {
+        return <Cella jel={e} key={i} index={i} katt={katt} />;
+      })}
+    </>
   );
 }
 

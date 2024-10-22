@@ -1,42 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./App.css";
 import Jatekter from "./components/Jatekter";
-
+import { KattContext, KattProvider } from "./KattContext.js";
 function App() {
   //react state leira a program állapott
+  /*  <KattContext.Provider value={{lista,Katt}}> /*minden olyan komponensven amely a játéktér gyereke használhatjuk a providerben megadott értékeket*/
+  //</KattContext.Provider>
   //ha a state ben megadott változó értéke változik a react frissiti az oldal tartalmát
-  const [lepes, setLepes] = useState(0);
-  const [lista, setLista] = useState([
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-    " ",
-  ]);
-
-  function katt(adat) {
-    //itt akarjuk lekezelni melyik elmere kattintotttunk és mit irunk a listába
-    console.log("App: ", adat);
-
-    //1. csinálunk másolatot a listárol
-    const ujlista = [...lista];
-    //másolatot modositjuk
-    if (lepes % 2 === 0) {
-      ujlista[adat] = "X";
-    } else {
-      ujlista[adat] = "O";
-    }
-
-    //másolatot értékuladjuk az eredetinek
-    setLista([...ujlista]);
-    setLepes(lepes + 1);
-    console.log(lepes);
-  }
-
+  //itt akarjuk használni a listát
+  const { lista } = useContext(KattContext);
   return (
     <div className="App">
       <header className="App-header">
@@ -44,7 +16,9 @@ function App() {
       </header>
 
       <article>
-        <Jatekter lista={lista} katt={katt} />
+        <KattProvider>
+          <Jatekter lista={lista} />
+        </KattProvider>
       </article>
 
       <footer>Képiró Balázs</footer>
